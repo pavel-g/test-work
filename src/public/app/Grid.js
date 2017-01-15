@@ -103,11 +103,64 @@ Ext.define('App.Grid', {
 	 */
 	getIpField: function() {
 		if (!this.ipField) {
+			var me = this;
 			this.ipField = Ext.create('Ext.form.field.Text', {
-				width: 150
+				width: 150,
+				validator: function(value) {
+					if (typeof value === 'string' && value.length === 0) return true;
+					var res = me.checkIp(value);
+					return res === true ? res : 'Неверный ip';
+				}
 			});
 		}
 		return this.ipField;
+	},
+	
+	/**
+	 * @property {RegExp}
+	 * @protected
+	 */
+	regexpCheckNum: new RegExp("^\\d+$"),
+	
+	/**
+	 * @method
+	 * @protected
+	 *
+	 * Проверка записи в строке целого числа
+	 *
+	 * @param {String} str
+	 * @return {Boolean}
+	 */
+	checkInteger: function(str) {
+		return Boolean(this.regexpCheckNum.test(str));
+	},
+	
+	/**
+	 * @method
+	 * @protected
+	 *
+	 * Проверка ip адреса
+	 *
+	 * @param {String} ip
+	 * @return {Boolean}
+	 */
+	checkIp: function(ip) {
+		var MIN_IP = 0;
+		var MAX_IP = 255;
+		if (typeof ip !== 'string') return false;
+		var parts = ip.split('.');
+		if (parts.length >= 5) return false;
+		var i, part, num;
+		for ( i = 0; i < parts.length; i++ ) {
+			part = parts[i];
+			if (typeof part === 'string' && part.length === 0 && (i === 0 || i === parts.length - 1)) {
+				continue;
+			}
+			if (!this.checkInteger(part)) return false;
+			num = Number(part);
+			if (num < MIN_IP || num > MAX_IP) return false;
+		}
+		return true;
 	},
 	
 	/**
