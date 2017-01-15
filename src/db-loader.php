@@ -27,6 +27,7 @@ $queries['browsers'] = "
 if ($log !== false) {
 	$statement = $db->getStatement($queries['log']);
 	while(($data = fgetcsv($log, $csvLength, $delimiter)) !== false) {
+		if (count($data) < 5) continue;
 		$timestamp = \App\Utils::parseDateTime($data[0], $data[1]);
 		$params = array(
 			':time' => $timestamp->format('Y-m-d H:i:s'),
@@ -43,6 +44,7 @@ if ($log !== false) {
 if ($browsers !== false) {
 	$statement = $db->getStatement($queries['browsers']);
 	while(($data = fgetcsv($browsers, $csvLength, $delimiter)) !== false) {
+		if (count($data) < 3) continue;
 		$params = array(
 			':ip' => $data[0],
 			':name' => $data[1],
