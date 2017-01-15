@@ -32,16 +32,30 @@ class Main {
 	public function getResponse() {
 		$query = "
 			SELECT
-				to_char(log.time, 'YYYY-MM-DD HH24:MI:SS') \"time\",
-				log.ip,
-				log.source,
-				log.destination,
-				browsers.name browser,
-				browsers.os os
+				data.ip ip,
+				data.source[1] source,
+				data.destination[1] destination,
+				data.count \"count\",
+				data.browser browser,
+				data.os os
 			FROM
-				log
-				INNER JOIN browsers ON
-					browsers.ip = log.ip
+				(
+					SELECT
+						log.ip,
+						array_agg(log.source ORDER BY log.time ASC) source,
+						array_agg(log.destination ORDER BY log.time DESC) destination,
+						count(DISTINCT log.destination)-1 \"count\",
+						browsers.name browser,
+						browsers.os os
+					FROM
+						log
+						INNER JOIN browsers ON
+							browsers.ip = log.ip
+					GROUP BY
+						log.ip,
+						browser,
+						os
+				) data
 		";
 		$db = Db::getInstance();
 		return $db->selectAll($query);

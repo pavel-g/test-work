@@ -48,12 +48,12 @@ Ext.define('App.Grid', {
 			store: this.getStore(),
 			columns: {
 				items: [
-					{text: 'time', dataIndex: 'time'},
-					{text: 'ip', dataIndex: 'ip'},
-					{text: 'browser', dataIndex: 'browser'},
-					{text: 'os', dataIndex: 'os'},
-					{text: 'source', dataIndex: 'source'},
-					{text: 'destination', dataIndex: 'destination'}
+					{text: 'IP', dataIndex: 'ip'},
+					{text: 'Браузер', dataIndex: 'browser'},
+					{text: 'ОС', dataIndex: 'os'},
+					{text: 'Источник', dataIndex: 'source', sortable: false},
+					{text: 'Назначение', dataIndex: 'destination', sortable: false},
+					{text: 'Число страниц', dataIndex: 'count', sortable: false}
 				]
 			}
 		};
