@@ -7,6 +7,9 @@ namespace App;
  */
 class Main {
 	
+	/**
+	 * Основная функция обработки запросов от клиента
+	 */
 	public static function main() {
 		header('Content-Type: application/json');
 		try {
@@ -29,6 +32,10 @@ class Main {
 		}
 	}
 	
+	/**
+	 * Получение ответа
+	 * @return array
+	 */
 	public function getResponse() {
 		$query = "
 			SELECT

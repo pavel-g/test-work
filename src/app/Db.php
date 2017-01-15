@@ -13,6 +13,7 @@ class Db {
 	private static $instance = null;
 	
 	/**
+	 * Получение экземпляра класса
 	 * @return App\Db
 	 */
 	public static function getInstance() {
@@ -34,7 +35,7 @@ class Db {
 		$dbuser = 'test_work';
 		$dbpass = '123456';
 		$port = '5433';
-		// TODO: 2017-01-14 Вынести настройки в конфигурационный файл
+		// TODO: Вынести настройки в конфигурационный файл
 		$this->pdo = new \PDO("pgsql:dbname=$dbname;host=$host;port=$port", $dbuser, $dbpass);
 	}
 	
