@@ -76,4 +76,19 @@ class Utils {
 		return '%' . $value . '%';
 	}
 	
+	/**
+	 * Конвертация фильтров ExtJS в ассоциативный массив
+	 * @param string $filters фильтры от extjs
+	 * @return array
+	 */
+	public static function parseExtjsFilters($filters) {
+		$data = json_decode($filters, true);
+		if ($data === null) return array();
+		$res = array();
+		foreach( $data as $filter ) {
+			$res[$filter['property']] = $filter['value'];
+		}
+		return $res;
+	}
+	
 }

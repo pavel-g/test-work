@@ -14,7 +14,12 @@ class Main {
 		header('Content-Type: application/json');
 		try {
 			$main = new Main();
-			$ip = Utils::parseIpFilter($_GET['ip']);
+			$params = Utils::parseExtjsFilters($_GET['filter']);
+			if (array_key_exists('ip', $params)) {
+				$ip = Utils::parseIpFilter($params['ip']);
+			} else {
+				$ip = null;
+			}
 			$resp = $main->getResponse($ip);
 			$data = array(
 				'success' => true,

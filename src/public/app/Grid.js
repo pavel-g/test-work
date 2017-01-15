@@ -177,8 +177,35 @@ Ext.define('App.Grid', {
 	 */
 	getSearchButton: function() {
 		if (!this.searchButton) {
+			var me = this;
 			this.searchButton = Ext.create('Ext.button.Button', {
-				text: 'Поиск'
+				text: 'Поиск',
+				handler: function() {
+					var field = me.getIpField();
+					if (!field.validate()) return;
+					var value = field.getValue();
+					var operation;
+					if (value.length > 0) {
+						operation = Ext.create('Ext.data.Operation', {
+							action: 'read',
+							filters: [
+								Ext.create('Ext.util.Filter', {
+									property: 'ip',
+									value: value
+								})
+							]
+						});
+					} else {
+						operation = Ext.create('Ext.data.Operation', {
+							action: 'read'
+						});
+					}
+					var proxy = me.getProxy();
+					proxy.read(operation, function(operation) {
+						// TODO: Как-то настроить ExtJS на самостоятельное обновление данных
+						me.getStore().loadData(operation.getResultSet().records);
+					});
+				}
 			});
 		}
 		return this.searchButton;
