@@ -13,8 +13,7 @@ class DbInit {
 		$queries = array();
 		$queries['log'] = "
 			CREATE TABLE log(
-				date varchar(255),
-				time varchar(255),
+				time timestamp with time zone,
 				ip varchar(255),
 				source text,
 				destination text

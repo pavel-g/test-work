@@ -16,8 +16,8 @@ $delimiter = '|';
 
 $queries = array();
 $queries['log'] = "
-	INSERT INTO log (date, time, ip, source, destination)
-	VALUES (:date, :time, :ip, :source, :destination)
+	INSERT INTO log (time, ip, source, destination)
+	VALUES (:time, :ip, :source, :destination)
 ";
 $queries['browsers'] = "
 	INSERT INTO browsers (ip, name, os)
@@ -27,9 +27,9 @@ $queries['browsers'] = "
 if ($log !== false) {
 	$statement = $db->getStatement($queries['log']);
 	while(($data = fgetcsv($log, $csvLength, $delimiter)) !== false) {
+		$timestamp = \App\Utils::parseDateTime($data[0], $data[1]);
 		$params = array(
-			':date' => $data[0],
-			':time' => $data[1],
+			':time' => $timestamp->format('Y-m-d H:i:s'),
 			':ip' => $data[2],
 			':source' => $data[3],
 			':destination' => $data[4]

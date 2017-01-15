@@ -32,8 +32,7 @@ class Main {
 	public function getResponse() {
 		$query = "
 			SELECT
-				log.date,
-				log.time,
+				to_char(log.time, 'YYYY-MM-DD HH24:MI:SS') \"time\",
 				log.ip,
 				log.source,
 				log.destination,
