@@ -33,4 +33,20 @@ class DbInit {
 		return ((boolean) ($results['log'] !== false && $results['browsers'] !== false));
 	}
 	
+	/**
+	 * Удаление таблиц
+	 * @return boolean
+	 */
+	public static function dropTables() {
+		$db = Db::getInstance();
+		$queries = array(
+			'log' => "DROP TABLE log",
+			'browsers' => "DROP TABLE browsers"
+		);
+		$results = array();
+		$results['log'] = $db->query($queries['log']);
+		$results['browsers'] = $db->query($queries['browsers']);
+		return ((boolean) ($results['log'] !== false && $results['browsers'] !== false));
+	}
+	
 }
