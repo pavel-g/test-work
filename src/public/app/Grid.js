@@ -55,7 +55,11 @@ Ext.define('App.Grid', {
 					{text: 'Назначение', dataIndex: 'destination', sortable: false},
 					{text: 'Число страниц', dataIndex: 'count', sortable: false}
 				]
-			}
+			},
+			tbar: [
+				this.getIpField(),
+				this.getSearchButton()
+			]
 		};
 		var i;
 		for ( i in cfg ) { if ( cfg.hasOwnProperty(i) ) {
@@ -108,6 +112,48 @@ Ext.define('App.Grid', {
 			});
 		}
 		return this.proxy;
+	},
+	
+	/**
+	 * @property {Ext.form.field.Text} ipField
+	 * @private
+	 */
+	
+	/**
+	 * @method
+	 *
+	 * Получение поля для фильтрации ip
+	 *
+	 * @return {Ext.form.field.Text}
+	 */
+	getIpField: function() {
+		if (!this.ipField) {
+			this.ipField = Ext.create('Ext.form.field.Text', {
+				width: 150
+			});
+		}
+		return this.ipField;
+	},
+	
+	/**
+	 * @property {Ext.button.Button} searchButton
+	 * @private
+	 */
+	
+	/**
+	 * @method
+	 *
+	 * Получение кнопки "Поиск"
+	 *
+	 * @return {Ext.button.Button}
+	 */
+	getSearchButton: function() {
+		if (!this.searchButton) {
+			this.searchButton = Ext.create('Ext.button.Button', {
+				text: 'Поиск'
+			});
+		}
+		return this.searchButton;
 	},
 	
 });
