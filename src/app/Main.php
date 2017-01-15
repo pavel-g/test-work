@@ -14,7 +14,8 @@ class Main {
 		header('Content-Type: application/json');
 		try {
 			$main = new Main();
-			$resp = $main->getResponse();
+			$ip = Utils::parseIpFilter($_GET['ip']);
+			$resp = $main->getResponse($ip);
 			$data = array(
 				'success' => true,
 				'data' => $resp
@@ -34,9 +35,17 @@ class Main {
 	
 	/**
 	 * Получение ответа
+	 * @param string|null $ip
 	 * @return array
 	 */
-	public function getResponse() {
+	public function getResponse($ip = null) {
+		if ($ip !== null) {
+			$filter = "WHERE log.ip LIKE :ip";
+			$params = array(':ip' => $ip);
+		} else {
+			$filter = "";
+			$params = null;
+		}
 		$query = "
 			SELECT
 				data.ip ip,
@@ -58,6 +67,7 @@ class Main {
 						log
 						INNER JOIN browsers ON
 							browsers.ip = log.ip
+					{$filter}
 					GROUP BY
 						log.ip,
 						browser,
@@ -65,7 +75,7 @@ class Main {
 				) data
 		";
 		$db = Db::getInstance();
-		return $db->selectAll($query);
+		return $db->selectAll($query, $params);
 	}
 	
 }

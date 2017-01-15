@@ -43,4 +43,37 @@ class Utils {
 		return $res;
 	}
 	
+	/**
+	 * Проверка записи в строке целого числа
+	 * @param string $str
+	 * @return boolean
+	 */
+	public static function checkInteger($str) {
+		$res = preg_match('/^\\d+$/', $str);
+		return ((boolean) (is_numeric($res) && $res > 0));
+	}
+	
+	/**
+	 * Получение ip адреса для фильтра
+	 * @param string $value
+	 * @return string|null
+	 */
+	public static function parseIpFilter($value) {
+		$minIp = 0;
+		$maxIp = 255;
+		if (gettype($value) !== 'string') return null;
+		$parts = explode('.', $value);
+		if (count($parts) >= 5) return null;
+		for( $i = 0; $i < count($parts); $i++ ) {
+			$part = $parts[$i];
+			if (gettype($part) === 'string' && strlen($part) === 0 && ($i === 0 || $i === count($parts) - 1)) {
+				continue;
+			}
+			if (!self::checkInteger($part)) return null;
+			$num = (integer) $part;
+			if ($num < $minIp || $num > $maxIp) return null;
+		}
+		return '%' . $value . '%';
+	}
+	
 }
