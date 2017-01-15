@@ -48,7 +48,7 @@ class Db {
 	/**
 	 * @param string $query запрос
 	 * @param array|null $params параметры
-	 * @return type description
+	 * @return \PDOStatement
 	 */
 	private function prepare($query, $params) {
 		$pdo = $this->getPdo();
@@ -97,8 +97,14 @@ class Db {
 		}
 	}
 	
+	/**
+	 * Выполнение запроса в базе
+	 * @param string $query текст запроса
+	 * @param array|null $params параметры к запросу
+	 * @return \PDOStatement
+	 */
 	public function query($query, $params = null) {
-		$statement = $this->prepare($query, $params);
+		return $this->prepare($query, $params);
 	}
 	
 }
