@@ -10,31 +10,6 @@ Ext.define('App.Grid', {
 		'App.LogModel'
 	],
 	
-	statics: {
-		
-		/**
-		 * @property {App.Grid} grid
-		 * @static
-		 * @private
-		 */
-		
-		/**
-		 * @method
-		 * @static
-		 *
-		 * Получение экземпляра App.Grid
-		 *
-		 * @return {App.Grid}
-		 */
-		getInstance: function() {
-			if (!this.grid) {
-				this.grid = Ext.create('App.Grid');
-			}
-			return this.grid;
-		}
-		
-	},
-	
 	/**
 	 * @method
 	 *
@@ -44,7 +19,7 @@ Ext.define('App.Grid', {
 	 */
 	constructor: function(cfg) {
 		var config = {
-			renderTo: Ext.getBody(),
+			// renderTo: Ext.getBody(),
 			store: this.getStore(),
 			columns: {
 				items: [

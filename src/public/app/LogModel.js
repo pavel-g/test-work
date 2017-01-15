@@ -22,3 +22,5 @@ Ext.define('App.LogModel', {
 		{name: 'os', type: 'string'}
 	]
 });
+
+//# sourceURL=/app/LogModel.js

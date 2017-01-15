@@ -3,11 +3,11 @@ Ext.define('App.Main', {
 	singleton: true,
 	
 	requires: [
-		'App.Grid'
+		'App.Viewport'
 	],
 	
 	init: function() {
-		App.Grid.getInstance();
+		App.Viewport.getInstance();
 	},
 	
 });
