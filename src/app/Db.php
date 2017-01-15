@@ -46,13 +46,20 @@ class Db {
 	}
 	
 	/**
+	 * @param string $query sql запрос
+	 * @return \PDOStatement
+	 */
+	public function getStatement($query) {
+		return $this->getPdo()->prepare($query);
+	}
+	
+	/**
 	 * @param string $query запрос
 	 * @param array|null $params параметры
 	 * @return \PDOStatement
 	 */
 	private function prepare($query, $params) {
-		$pdo = $this->getPdo();
-		$statement = $pdo->prepare($query);
+		$statement = $this->getStatement($query);
 		if (gettype($params) === 'array' && count($params) > 0) {
 			$statement->execute($params);
 		} else {
