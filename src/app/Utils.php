@@ -29,4 +29,18 @@ class Utils {
 		return new \DateInterval('PT' . $h . 'H' . $m . 'M' . $s . 'S');
 	}
 	
+	/**
+	 * @param string $date дата записанная в формате YYYY-MM-DD
+	 * @param string $time время записанное в формате HH:MM:SS
+	 * @return \DateTime|null
+	 */
+	public static function parseDateTime($date, $time) {
+		$res = \DateTime::createFromFormat('Y-m-d H:i:s', $date . ' 00:00:00');
+		if ($res === false) return null;
+		$interval = self::parseInterval($time);
+		if ($interval === null) return null;
+		$res->add($interval);
+		return $res;
+	}
+	
 }
