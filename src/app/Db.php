@@ -29,13 +29,12 @@ class Db {
 	private $pdo = null;
 	
 	public function __construct() {
-		// Настройки соединения с базой:
-		$dbname = 'test_work';
-		$host = 'localhost';
-		$dbuser = 'test_work';
-		$dbpass = '123456';
-		$port = '5433';
-		// TODO: Вынести настройки в конфигурационный файл
+		$cfg = Config::getCfg();
+		$dbname = $cfg['dbname'];
+		$host = $cfg['dbhost'];
+		$dbuser = $cfg['dbuser'];
+		$dbpass = $cfg['dbpass'];
+		$port = $cfg['dbport'];
 		$this->pdo = new \PDO("pgsql:dbname=$dbname;host=$host;port=$port", $dbuser, $dbpass);
 	}
 	

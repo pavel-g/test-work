@@ -1,4 +1,5 @@
 src/composer.phar
+src/composer.lock
 doc/Тестовое задание PHP-программист.docx
 src/public/vendor/extjs4
 src/vendor
