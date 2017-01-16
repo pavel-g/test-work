@@ -23,12 +23,12 @@ Ext.define('App.Grid', {
 			store: this.getStore(),
 			columns: {
 				items: [
-					{text: 'IP', dataIndex: 'ip'},
-					{text: 'Браузер', dataIndex: 'browser'},
-					{text: 'ОС', dataIndex: 'os'},
-					{text: 'Источник', dataIndex: 'source', sortable: false},
-					{text: 'Назначение', dataIndex: 'destination', sortable: false},
-					{text: 'Число страниц', dataIndex: 'count', sortable: false}
+					{text: 'IP', dataIndex: 'ip', flex: 2},
+					{text: 'Браузер', dataIndex: 'browser', flex: 2},
+					{text: 'ОС', dataIndex: 'os', flex: 2},
+					{text: 'Источник', dataIndex: 'source', sortable: false, flex: 2},
+					{text: 'Назначение', dataIndex: 'destination', sortable: false, flex: 2},
+					{text: 'Число страниц', dataIndex: 'count', sortable: false, flex: 1}
 				]
 			},
 			tbar: [
