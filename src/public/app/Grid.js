@@ -110,7 +110,8 @@ Ext.define('App.Grid', {
 					if (typeof value === 'string' && value.length === 0) return true;
 					var res = me.checkIp(value);
 					return res === true ? res : 'Неверный ip';
-				}
+				},
+				emptyText: 'IP адрес'
 			});
 		}
 		return this.ipField;
