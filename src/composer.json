@@ -1,5 +1,8 @@
 {
 	"autoload": {
 		"psr-4": {"App\\": "app/"}
+	},
+	"require": {
+		"ulrichsg/getopt-php": "2.3.*"
 	}
 }
